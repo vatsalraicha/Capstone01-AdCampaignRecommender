@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>ML Classification Regression API</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  
+</head>
+
+<!--------Do not touch the above code---->
+
+<body>
+ <div class="login">
+	<h1>Ad Campaign Recommender - Vatsal Raicha (University Of Arizona)</h1>
+     <!-- Main Input For Receiving Query to our ML -->
+ 
+<h2>Select Device ID</h2>   <form action="{{ url_for('predict')}}"method="post"> 
+    	
+  
+<select class="custom-select" name="device_id">
+            {% for device_id in device_ids %}
+            <option value="{{ device_id }}">{{ device_id }}</option>
+            {% endfor %}
+        </select>      
+       <br><br> <button type="submit" class="btn btn-primary btn-block btn-large">Predict Campaign</button>
+    </form>
+
+   <br>
+
+   {% for each in prediction_text %}
+      {% if loop.index0 == 0 %}
+        <h3>Prediction for Device ID {{ prediction_text[0] }}</h2>
+      {% endif %}
+      {% if loop.index0 == 1 %}
+        <h3>Gender is - {{ prediction_text[1] }}</h3>
+      {% endif %}
+      {% if loop.index0 == 2 %}
+        <h3>Age Group is - {{ each }}</h3>
+      {% endif %}
+      {% if loop.index0 == 3 %}
+        <h3>Selected Campaigns are below</h3>
+        <h3>{{ prediction_text[3] }}</h3>
+      {% endif %}
+   {% endfor %}
+
+
+ </div>
+
+
+</body>
+</html>
